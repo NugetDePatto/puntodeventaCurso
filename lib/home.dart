@@ -36,8 +36,8 @@ class _HomePageState extends State<HomePage> {
               onSubmitted: (value) {
                 int i = int.parse(value);
                 print(productos[i]);
-
                 productosGuardados.add(productos[i]);
+
                 setState(() {});
               },
             ),
