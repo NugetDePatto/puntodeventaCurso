@@ -12,25 +12,40 @@ void main() async {
 
   Box productos = Hive.box('productos');
 
-  productos.clear();
-
-  List<String> p = [
-    'Producto 1',
-    'Producto 2',
-    'Producto 3',
-    'Producto 4',
-    'Producto 5',
-  ];
-
-  productos.add('');
-
-  productos.put(6, 'producto 1');
-  productos.put('p3', 'producto 1');
   productos.put(
-    'Jugo Jumex 1L',
+    'p1',
     {
-      'precio': 10,
-      'cantidad': 10,
+      'nombre': 'Coca cola',
+      'precio': 20,
+      'codigo': 'xxxxxxxxx',
+      'categoria': 'Refrescos'
+    },
+  );
+  productos.put(
+    'p2',
+    {
+      'nombre': 'Pepsi',
+      'precio': 18,
+      'codigo': 'xxxxxxxxx',
+      'categoria': 'Refrescos'
+    },
+  );
+  productos.put(
+    'p3',
+    {
+      'nombre': 'Jugo Jumex',
+      'precio': 18,
+      'codigo': 'xxxxxxxxx',
+      'categoria': 'Bebidas'
+    },
+  );
+  productos.put(
+    'p4',
+    {
+      'nombre': 'Sprite',
+      'precio': 18,
+      'codigo': 'xxxxxxxxx',
+      'categoria': 'Refrescos'
     },
   );
 
@@ -50,14 +65,6 @@ void main() async {
 
   //p3
   //2023-01-01
-
-  productos.addAll(p);
-
-  // print(productos.values);
-
-  for (var i = 0; i < productos.length; i++) {
-    print(productos.getAt(i));
-  }
 
   runApp(const MyApp());
 }
