@@ -10,7 +10,10 @@ void main() async {
   //metodo asincrono
   await Hive.openBox('productos');
 
+  //variable para abrir la base de datos de productos
   Box productos = Hive.box('productos');
+
+  // productos.clear();
 
   productos.put(
     'p1',
@@ -21,6 +24,7 @@ void main() async {
       'categoria': 'Refrescos'
     },
   );
+
   productos.put(
     'p2',
     {
@@ -48,23 +52,6 @@ void main() async {
       'categoria': 'Refrescos'
     },
   );
-
-  // print(productos.get('Jugo Jumex'));
-
-  // productos.getAt(index);
-
-  // 0
-  // 1
-  // 2
-  // 3
-  // 4
-  //
-  // 6
-  //
-  //10
-
-  //p3
-  //2023-01-01
 
   runApp(const MyApp());
 }

@@ -10,27 +10,171 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Box productos = Hive.box('productos');
+  int indice = 0;
+
+  vistas() {
+    if (indice == 0) {
+      return Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/imagen.jpeg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: ListView(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    crear('p7', 'Coca cola', 20, 'Refrescos');
+                    setState(() {});
+                  },
+                  child: const Text('Agregar'),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                for (var p in productos.values)
+                  Container(
+                    margin: const EdgeInsets.only(
+                      bottom: 20,
+                    ),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.fastfood,
+                          size: 40,
+                        ),
+                        const SizedBox(width: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              p['nombre'].toString(),
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              p['categoria'].toString(),
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Text(
+                          '\$${p['precio']}',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else if (indice == 1) {
+      return const Scaffold(
+        body: Text('Perfil'),
+      );
+    } else if (indice == 2) {
+      return const Scaffold(
+        body: Text('Inicio'),
+      );
+    }
+  }
+
+  crear(String codigo, String nombre, double precio, String categoria) {
+    // si el producto ya existe, no lo agregamos y mostramos un mensaje
+    if (productos.containsKey(codigo)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('El producto ya existe'),
+        ),
+      );
+    }
+
+    productos.put(
+      codigo,
+      {
+        'codigo': codigo,
+        'nombre': nombre,
+        'precio': precio,
+        'categoria': categoria,
+      },
+    );
+  }
+
+  leer(String codigo) {
+    if (!productos.containsKey(codigo)) {
+      return {};
+    }
+    return productos.get(codigo);
+  }
+
+  actualizar(String codigo, String nombre, double precio, String categoria) {
+    productos.put(
+      codigo,
+      {
+        'codigo': codigo,
+        'nombre': nombre,
+        'precio': precio,
+        'categoria': categoria,
+      },
+    );
+  }
+
+  eliminar() {}
+
+  // CREATE, READ, UPDATE, DELETE
+  // CREAR, LEER, ACTUALIZAR, ELIMINAR
+  // CRUD
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.blueGrey[900],
         title: const Text('Punto de Venta'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: ListView(
-          children: [
-            for (var p in productos.values)
-              Text(
-                p.toString(),
-                style: const TextStyle(
-                  fontSize: 40,
-                ),
-              ),
-          ],
-        ),
+      body: vistas(),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: indice,
+        onTap: (value) {
+          print(value);
+          indice = value;
+          setState(() {});
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inicio',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inicio',
+          ),
+        ],
       ),
     );
   }
