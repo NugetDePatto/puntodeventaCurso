@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:puntodeventa/agregarProductos.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,8 +29,25 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    crear('p7', 'Coca cola', 20, 'Refrescos');
-                    setState(() {});
+                    // para mandar una vista
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const AgregarProductosView();
+                        },
+                      ),
+                    ).then((value) {
+                      if (value != null) {
+                        crear(
+                          value['codigo'],
+                          value['nombre'],
+                          value['precio'],
+                          value['categoria'],
+                        );
+                        setState(() {});
+                      }
+                    });
                   },
                   child: const Text('Agregar'),
                 ),
@@ -139,7 +157,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  eliminar() {}
+  eliminar(String codigo) {
+    productos.delete(codigo);
+  }
 
   // CREATE, READ, UPDATE, DELETE
   // CREAR, LEER, ACTUALIZAR, ELIMINAR
