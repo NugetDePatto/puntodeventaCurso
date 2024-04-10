@@ -15,43 +15,43 @@ void main() async {
 
   // productos.clear();
 
-  productos.put(
-    'p1',
-    {
-      'nombre': 'Coca cola',
-      'precio': 20,
-      'codigo': 'xxxxxxxxx',
-      'categoria': 'Refrescos'
-    },
-  );
+  // productos.put(
+  //   'p1',
+  //   {
+  //     'nombre': 'Coca cola',
+  //     'precio': 20,
+  //     'codigo': 'xxxxxxxxx',
+  //     'categoria': 'Refrescos'
+  //   },
+  // );
 
-  productos.put(
-    'p2',
-    {
-      'nombre': 'Pepsi',
-      'precio': 18,
-      'codigo': 'xxxxxxxxx',
-      'categoria': 'Refrescos'
-    },
-  );
-  productos.put(
-    'p3',
-    {
-      'nombre': 'Jugo Jumex',
-      'precio': 18,
-      'codigo': 'xxxxxxxxx',
-      'categoria': 'Bebidas'
-    },
-  );
-  productos.put(
-    'p4',
-    {
-      'nombre': 'Sprite',
-      'precio': 18,
-      'codigo': 'xxxxxxxxx',
-      'categoria': 'Refrescos'
-    },
-  );
+  // productos.put(
+  //   'p2',
+  //   {
+  //     'nombre': 'Pepsi',
+  //     'precio': 18,
+  //     'codigo': 'xxxxxxxxx',
+  //     'categoria': 'Refrescos'
+  //   },
+  // );
+  // productos.put(
+  //   'p3',
+  //   {
+  //     'nombre': 'Jugo Jumex',
+  //     'precio': 18,
+  //     'codigo': 'xxxxxxxxx',
+  //     'categoria': 'Bebidas'
+  //   },
+  // );
+  // productos.put(
+  //   'p4',
+  //   {
+  //     'nombre': 'Sprite',
+  //     'precio': 18,
+  //     'codigo': 'xxxxxxxxx',
+  //     'categoria': 'Refrescos'
+  //   },
+  // );
 
   runApp(const MyApp());
 }

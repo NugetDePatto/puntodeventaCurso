@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:puntodeventa/agregarProductos.dart';
+import 'package:puntodeventa/editarProductos.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,50 +56,75 @@ class _HomePageState extends State<HomePage> {
                   height: 20,
                 ),
                 for (var p in productos.values)
-                  Container(
-                    margin: const EdgeInsets.only(
-                      bottom: 20,
-                    ),
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.fastfood,
-                          size: 40,
+                  GestureDetector(
+                    onTap: () {
+                      // print(p);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return EditarProductosView(producto: p);
+                          },
                         ),
-                        const SizedBox(width: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              p['nombre'].toString(),
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              p['categoria'].toString(),
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        Text(
-                          '\$${p['precio']}',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                      ).then(
+                        (value) {
+                          if (value != null) {
+                            actualizar(
+                              value['codigo'],
+                              value['nombre'],
+                              value['precio'],
+                              value['categoria'],
+                            );
+                            setState(() {});
+                          }
+                        },
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        bottom: 20,
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.fastfood,
+                            size: 40,
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 20),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                p['nombre'].toString(),
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                p['categoria'].toString(),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Text(
+                            '\$${p['precio']}',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
               ],
